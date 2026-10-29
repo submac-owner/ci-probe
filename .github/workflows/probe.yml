@@ -1,0 +1,12 @@
+name: CI probe
+on: [push, workflow_dispatch]
+jobs:
+  probe:
+    runs-on: windows-2022
+    steps:
+      - name: basic
+        shell: pwsh
+        run: |
+          Write-Output "windows runner OK"
+          Write-Output ("RAM GB = " + [math]::Round((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory/1GB,1))
+          Write-Output ("cores = " + (Get-CimInstance Win32_ComputerSystem).NumberOfLogicalProcessors)
